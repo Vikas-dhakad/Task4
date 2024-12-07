@@ -1,1 +1,207 @@
 
+//HTML CODE 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Product Page</h1>
+        </div>
+    </header>
+    <main>
+        <aside>
+            <div class="container">
+                <h2>Filter</h2>
+                <div class="filter-group">
+                    <h3>Category</h3>
+                    <label><input type="checkbox" class="filter-category" value="electronics"> Electronics</label><br>
+                    <label><input type="checkbox" class="filter-category" value="fashion"> Fashion</label><br>
+                    <label><input type="checkbox" class="filter-category" value="home"> Home</label><br>
+                </div>
+                <div class="filter-group">
+                    <h3>Price</h3>
+                    <label for="priceRange">Price Range:</label>
+                    <input type="range" class="filter-price" min="0" max="1000" value="0" id="priceRange" title="Price Range">
+                    <span id="priceValue">$0</span>
+                </div>
+                <h2>Sort</h2>
+                <label for="sortCriteria">Sort By:</label>
+                <select id="sortCriteria" title="Sort Criteria">
+                    <option value="rating">Rating</option>
+                    <option value="price">Price</option>
+                </select>
+            </div>
+        </aside>
+        <section id="products">
+            <!-- Products will be dynamically generated here -->
+        </section>
+    </main>
+    <script src="scriptss.js" defer></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+// CSS CODE 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+header {
+    background: rgb(21, 76, 121);
+    color: #fff;
+    padding: 1rem 0;
+}
+
+main {
+    padding: 2rem;
+}
+
+#todo-app {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background: rgb(21, 76, 121);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #f0c040;
+}
+
+ul {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+li {
+    background: #eee;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li button {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    background: #d9534f;
+    border-radius: 4px;
+}
+
+li button:hover {
+    background: #c9302c;
+}
+
+
+
+
+
+
+
+
+//JS CODE 
+document.addEventListener('DOMContentLoaded', function() {
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+
+    // Load tasks from localStorage
+    function loadTasks() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => displayTask(task));
+    }
+
+    // Save tasks to localStorage
+    function saveTasks(tasks) {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Display task
+    function displayTask(task) {
+        const li = document.createElement('li');
+        li.textContent = task;
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => {
+            li.remove();
+            deleteTask(task);
+        });
+        li.appendChild(deleteBtn);
+        taskList.appendChild(li);
+    }
+
+    // Add task
+    function addTask() {
+        const task = taskInput.value.trim();
+        if (task) {
+            displayTask(task);
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(task);
+            saveTasks(tasks);
+            taskInput.value = '';
+        }
+    }
+
+    // Delete task
+    function deleteTask(taskToDelete) {
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks = tasks.filter(task => task !== taskToDelete);
+        saveTasks(tasks);
+    }
+
+    // Event listeners
+    addTaskBtn.addEventListener('click', addTask);
+    taskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTask();
+        }
+    });
+
+    // Initial load
+    loadTasks();
+});
