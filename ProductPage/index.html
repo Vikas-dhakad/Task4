@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Product Page</h1>
+        </div>
+    </header>
+    <main>
+        <aside>
+            <div class="container">
+                <h2>Filter</h2>
+                <div class="filter-group">
+                    <h3>Category</h3>
+                    <label><input type="checkbox" class="filter-category" value="electronics"> Electronics</label><br>
+                    <label><input type="checkbox" class="filter-category" value="fashion"> Fashion</label><br>
+                    <label><input type="checkbox" class="filter-category" value="home"> Home</label><br>
+                </div>
+                <div class="filter-group">
+                    <h3>Price</h3>
+                    <label for="priceRange">Price Range:</label>
+                    <input type="range" class="filter-price" min="0" max="1000" value="0" id="priceRange" title="Price Range">
+                    <span id="priceValue">$0</span>
+                </div>
+                <h2>Sort</h2>
+                <label for="sortCriteria">Sort By:</label>
+                <select id="sortCriteria" title="Sort Criteria">
+                    <option value="rating">Rating</option>
+                    <option value="price">Price</option>
+                </select>
+            </div>
+        </aside>
+        <section id="products">
+            <!-- Products will be dynamically generated here -->
+        </section>
+    </main>
+    <script src="scriptss.js" defer></script>
+
+</body>
+</html>
